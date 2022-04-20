@@ -11,7 +11,7 @@ export default {
       let user = await prisma.user.findUnique({ where: { email } });
 
       if (user) {
-        return res.json({ error: 'Usuário já existente' });
+        return res.json({ error: 'User already exist.' });
       }
 
       user = await prisma.user.create({
@@ -44,7 +44,7 @@ export default {
       console.log('req.params: ', req.params);
 
       const user = await prisma.user.findUnique({ where: { id: Number(id) } });
-      if (!user) return res.json({ error: 'Não existe esse usuário.' });
+      if (!user) return res.json({ error: 'This user does not exist.' });
 
       return res.json(user);
     } catch (error) {
@@ -61,7 +61,7 @@ export default {
       console.log('req.body: ', req.body);
 
       let user = await prisma.user.findUnique({ where: { id: Number(id) } });
-      if (!user) return res.json({ error: 'Não existe esse usuário.' });
+      if (!user) return res.json({ error: 'This user does not exist.' });
 
       user = await prisma.user.update({
         where: { id: Number(id) },
@@ -80,11 +80,11 @@ export default {
       console.log('req.params: ', req.params);
 
       const user = await prisma.user.findUnique({ where: { id: Number(id) } });
-      if (!user) return res.json({ error: 'Não existe esse usuário.' });
+      if (!user) return res.json({ error: 'This user does not exist.' });
 
       await prisma.user.delete({ where: { id: Number(id) } });
 
-      return res.json({ message: 'Usuário deletado.' });
+      return res.json({ message: 'User deleted.' });
     } catch (error) {
       error.statusCode = 403;
       next(error);
